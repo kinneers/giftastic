@@ -7,10 +7,27 @@
     <title>GifTastic!</title>
 </head>
 <body>
+    <heading>Search for GIFs of Famous Actors and Actresses!</heading>
 
-    <!-- Create Page Layout- Kathy posted the site to go to for tiles -->
+    <form id="topic-form">
+        <!-- Label for Text Box -->
+        <label for="topic">Add a Famous Actor or Actress:</label>
+        <!-- Text Input Box -->
+        <input type="text" id="topic-input">
+        <!-- Number of Records -->
+        <input id="select-topic" type="submit" value="Add!">
+    </form>
+
+    <div class="buttons">
+        <h2>Click a Button to Display 10 GIFs</h2>
+    </div>
+
+    <!-- I might want to use masonry, but if I did I will need the same width for each image, not height -->
+    <div class="grid" data-masonry='{ "itemSelector": ".grid-item", "columnWidth": 200 }'>
+    </div>
     
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+    <script src="https://unpkg.com/masonry-layout@4/dist/masonry.pkgd.min.js"></script>
     <script src="assets/javascript.js"></script>
 </body>
 </html>
