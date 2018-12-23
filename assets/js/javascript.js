@@ -32,7 +32,7 @@ $(document).ready(function() {
         console.log(topics);
     })
 
-
+    //Function to create a button
     function renderButtons(topics) {
         var newButton = $("<input>").attr({
         type:"button",
@@ -42,6 +42,8 @@ $(document).ready(function() {
         newButton.addClass('topic')
         $(".buttons").append(newButton);
     }
+
+    //For loop to display each button
     for(var i = 0; i < topics.length; i++){
         renderButtons(topics[i]);
         btns++;
@@ -62,12 +64,15 @@ $(document).ready(function() {
         $('.grid').empty();
         $('.clickPrompt').show();
         response.data.forEach(function(image) {
-            var newDiv = $("<div>");
-            var newImage = $("<img>").attr("class", "gif grid-item").attr("data-state", "still").attr("src", image.images.fixed_width_still.url).attr("data-animate", image.images.fixed_width.url).attr("data-still", image.images.fixed_width_still.url);
-            //NEED TO ADD RATING
-            newDiv.append(newImage);
-            $('.grid').append(newDiv);
-           console.log(response);
+            if (image.rating !== "r" && image.rating !== "pg-13") {
+                var newDiv = $("<div>");
+                var newImage = $("<img>").attr("class", "gif grid-item").attr("data-state", "still").attr("src", image.images.fixed_width_still.url).attr("data-animate", image.images.fixed_width.url).attr("data-still", image.images.fixed_width_still.url);
+                var imageRating = $('<p>').text("Rating: " + image.rating);
+                newDiv.append(newImage).append(imageRating);
+                $('.grid').append(newDiv);
+                console.log(response);
+                console.log(imageRating);
+            }
         });   
         
         $(".gif").on("click", function() {
