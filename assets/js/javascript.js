@@ -1,5 +1,6 @@
 $(document).ready(function() {
     $('.prompt').hide();
+    $('.clickPrompt').hide();
     var topics = ["Brad Pitt", "Angelina Jolie", "Jennifer Lawrence", "Tom Hanks", "Robert De Niro", "Johnny Depp", "Al Pacino", "Denzel Washington", "Russell Crowe", "Leonardo DiCaprio", "Tom Cruise", "John Travolta", "Arnold Schwarzenegger", "Kate Winslet", "Christian Bale", "Morgan Freeman", "Keanu Reeves", "Nicolas Cage", "Hugh Jackman", "Bruce Willis", "Will Smith", "Keira Knightly", "Vin Diesel", "Matt Damon", "Catherine Zeta-Jones", "George Clooney", "Scarlett Johansson", "Robert Downey, Jr.", "Sandra Bullock", "Meg Ryan", "Megan Fox", "Nicole Kidman", "Cameron Diaz", "Katherine Heigl"];
     var btns = 0;
     var selection='';
@@ -53,12 +54,13 @@ $(document).ready(function() {
             method: "GET"
         }).then(function(response){
             console.log(response);
-            $('.grid').before('<h2>Click an Image to Animate the GIF');
             displayImages(response);
         }) 
     })
 
     function displayImages(response) {
+        $('.grid').empty();
+        $('.clickPrompt').show();
         response.data.forEach(function(image) {
             var newDiv = $("<div>");
             var newImage = $("<img>").attr("class", "gif grid-item").attr("data-state", "still").attr("src", image.images.fixed_width_still.url).attr("data-animate", image.images.fixed_width.url).attr("data-still", image.images.fixed_width_still.url);

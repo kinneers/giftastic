@@ -13,6 +13,24 @@ body {
 
 }
 
+h1 {
+    font-size: 50px;
+    padding: 10px;
+}
+
+h2 {
+    font-size: 30px;
+    padding: 10px;
+}
+
+.topic {
+    font-size: 18px;
+}
+
+label {
+    font-size: 20px;
+}
+
 .grid {
     display: flex;
     flex-wrap: wrap;
@@ -25,4 +43,5 @@ footer {
     text-align: center;
     height: auto;
     color: #fff;
+    font-size: 20px;
 }
