@@ -6,6 +6,8 @@ body {
     display: flex;
     flex-direction: column;
     min-height: 100vh;
+    background-image: linear-gradient(to right bottom, rgba(117, 7, 131, 0.8), rgb(255, 255, 255, 0.8), rgba(219, 130, 203, 0.8));
+
 }
 
 .mainContent {
@@ -25,6 +27,16 @@ h2 {
 
 .topic {
     font-size: 18px;
+    background-color: lavender;
+    cursor: pointer;
+    border-radius: 25px;
+    box-shadow: #666666;
+}
+
+.gif {
+    cursor: pointer;
+    border: 2px dotted gray;
+    margin: 10px;
 }
 
 label {
@@ -34,6 +46,8 @@ label {
 .grid {
     display: flex;
     flex-wrap: wrap;
+    justify-content: center;
+    align-items: center;
 }
 
 footer {
