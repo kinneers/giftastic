@@ -1,0 +1,28 @@
+@import url('https://fonts.googleapis.com/css?family=Thasadith');
+
+body {
+    font-family: 'Thasadith', sans-serif;
+    text-align: center;
+    display: flex;
+    flex-direction: column;
+    min-height: 100vh;
+}
+
+.mainContent {
+    flex: 1 0 auto;
+
+}
+
+.grid {
+    display: flex;
+    flex-wrap: wrap;
+}
+
+footer {
+    border-top: 8px solid plum;
+    background-color: #666666;
+    flex-shrink: 0;
+    text-align: center;
+    height: auto;
+    color: #fff;
+}

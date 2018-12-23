@@ -5,29 +5,39 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
     <title>GifTastic!</title>
+    <link rel="stylesheet" type="text/css" media="screen" href="assets/css/reset.css">
+    <link rel="stylesheet" type="text/css" media="screen" href="assets/css/style.css">
 </head>
 <body>
-    <heading>Search for GIFs of Famous Actors and Actresses!</heading>
+    <div class="mainContent">
+        <h1>Search for GIFs of Famous Actors and Actresses!</h1>
 
-    <form id="topic-form">
-        <!-- Label for Text Box -->
-        <label for="topic">Add a Famous Actor or Actress:</label>
-        <!-- Text Input Box -->
-        <input type="text" id="topic-input">
-        <!-- Number of Records -->
-        <input id="select-topic" type="submit" value="Add!">
-    </form>
+        <form id="topic-form">
+            <!-- Label for Text Box -->
+            <label for="topic">Add a Famous Actor or Actress:</label>
+            <!-- Text Input Box -->
+            <input type="text" id="topic-input">
+            <!-- Number of Records -->
+            <input id="select-topic" type="submit" value="Add!">
+            <p class="prompt">Please enter a name to continue</p>
+        </form>
 
-    <div class="buttons">
         <h2>Click a Button to Display 10 GIFs</h2>
-    </div>
 
-    <!-- I might want to use masonry, but if I did I will need the same width for each image, not height -->
-    <div class="grid" data-masonry='{ "itemSelector": ".grid-item", "columnWidth": 200 }'>
+        <div class="buttons">
+            
+        </div>
+
+        <!-- I might want to use masonry, but if I did I will need the same width for each image, not height -->
+        <div class="grid">
+        </div>
     </div>
     
+    <footer>
+        <p>Copyright &copy; 2018 Sarah Kinneer</p>
+    </footer>
+    
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
-    <script src="https://unpkg.com/masonry-layout@4/dist/masonry.pkgd.min.js"></script>
-    <script src="assets/javascript.js"></script>
+    <script src="assets/js/javascript.js"></script>
 </body>
 </html>
