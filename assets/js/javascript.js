@@ -57,7 +57,8 @@ $(document).ready(function() {
         }).then(function(response){
             console.log(response);
             displayImages(response);
-        }) 
+        })
+        $('.promptsToChoose').text("");
     })
 
     function displayImages(response) {
@@ -69,21 +70,19 @@ $(document).ready(function() {
                 var newImage = $("<img>").attr("class", "gif grid-item").attr("data-state", "still").attr("src", image.images.fixed_width_still.url).attr("data-animate", image.images.fixed_width.url).attr("data-still", image.images.fixed_width_still.url);
                 var imageRating = $('<p>').text("Rating: " + image.rating);
                 newDiv.append(newImage).append(imageRating);
-                $('.grid').append(newDiv);
+                $('#results').append(newDiv);
                 console.log(response);
                 console.log(imageRating);
             }
         });   
         
+        //Click to switch between animated and still
         $(".gif").on("click", function() {
             var state = $(this).attr("data-state");
-            console.log(state);
-      
             if (state === "still") {
               $(this).attr("src", $(this).attr("data-animate"));
               $(this).attr("data-state", "animate");
             }
-      
             else {
               $(this).attr("src", $(this).attr("data-still"));
               $(this).attr("data-state", "still");

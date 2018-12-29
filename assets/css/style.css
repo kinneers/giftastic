@@ -10,8 +10,10 @@ body {
 
 }
 
-.mainContent {
+#container {
     flex: 1 0 auto;
+    display: grid;
+    grid-template-columns: 75% 25%;
 
 }
 
