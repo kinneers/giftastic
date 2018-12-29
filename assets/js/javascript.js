@@ -71,7 +71,8 @@ $(document).ready(function() {
                 var imageRating = $('<p>').text("Rating: " + image.rating.toUpperCase());
                 var imageTitle = $('<p>').text("Title: " + image.title.toUpperCase());
                 var imageImportDateTime =$('<p>').text("Imported: " + image.import_datetime);
-                newDiv.append(newImage).append(imageTitle).append(imageRating).append(imageImportDateTime);
+                var favoriteButton = $(`<button class=addFavorite>Heart</button>`)
+                newDiv.append(newImage).append(imageTitle).append(imageRating).append(imageImportDateTime).append(favoriteButton);
                 $('#results').append(newDiv);
                 console.log(response);
                 console.log(imageRating);
