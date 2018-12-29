@@ -68,8 +68,10 @@ $(document).ready(function() {
             if (image.rating !== "r" && image.rating !== "pg-13") {
                 var newDiv = $("<div>");
                 var newImage = $("<img>").attr("class", "gif grid-item").attr("data-state", "still").attr("src", image.images.fixed_width_still.url).attr("data-animate", image.images.fixed_width.url).attr("data-still", image.images.fixed_width_still.url);
-                var imageRating = $('<p>').text("Rating: " + image.rating);
-                newDiv.append(newImage).append(imageRating);
+                var imageRating = $('<p>').text("Rating: " + image.rating.toUpperCase());
+                var imageTitle = $('<p>').text("Title: " + image.title.toUpperCase());
+                var imageImportDateTime =$('<p>').text("Imported: " + image.import_datetime);
+                newDiv.append(newImage).append(imageTitle).append(imageRating).append(imageImportDateTime);
                 $('#results').append(newDiv);
                 console.log(response);
                 console.log(imageRating);
