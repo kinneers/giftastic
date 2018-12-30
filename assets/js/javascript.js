@@ -91,5 +91,15 @@ $(document).ready(function() {
               $(this).attr("data-state", "still");
             }
         });
-    }    
+
+        //Move favorite gifs to favorites area on click of heart button
+        $('.addFavorite').on('click tap', function(){
+            var saveFavorite = $(this).parent();
+            $(this).text("Remove");
+            $(this).addClass('remove').removeClass('addFavorite');
+            $('.sidebar').append(saveFavorite);
+        })
+
+        
+    }   
 })
