@@ -79,27 +79,34 @@ $(document).ready(function() {
             }
         });   
         
-        //Click to switch between animated and still
-        $(".gif").on("click", function() {
-            var state = $(this).attr("data-state");
-            if (state === "still") {
-              $(this).attr("src", $(this).attr("data-animate"));
-              $(this).attr("data-state", "animate");
-            }
-            else {
-              $(this).attr("src", $(this).attr("data-still"));
-              $(this).attr("data-state", "still");
-            }
-        });
+    } 
+    
+    //Click to switch between animated and still
+    $(document).on("click tap", ".gif", function() {
+        var state = $(this).attr("data-state");
+        if (state === "still") {
+          $(this).attr("src", $(this).attr("data-animate"));
+          $(this).attr("data-state", "animate");
+        }
+        else {
+          $(this).attr("src", $(this).attr("data-still"));
+          $(this).attr("data-state", "still");
+        }
+    });
 
-        //Move favorite gifs to favorites area on click of heart button
-        $('.addFavorite').on('click tap', function(){
-            var saveFavorite = $(this).parent();
-            $(this).text("Remove");
-            $(this).addClass('remove').removeClass('addFavorite');
-            $('.sidebar').append(saveFavorite);
-        })
+    //Move favorite gifs to favorites area on click of heart button
+    $(document).on('click tap','.addFavorite', function(){
+        var saveFavorite = $(this).parent();
+        $(this).hide();
+        saveFavorite.append(`<button class='remove'>Remove</button>`);
+        $('.sidebar').append(saveFavorite);
+    })
 
-        
-    }   
+    $(document).on('click tap','.remove', function(){
+        var removeFavorite = $(this).parent(); //grabs the image div associated with the clicked button
+        $(this).hide();  //hides the remove button
+        $('#results').append(removeFavorite);
+        $('#results .addFavorite').show(); //shows the heart button in the returned results
+        $('.sidebar .addFavorite').hide();  //keeps the other heart buttons hidden
+    })
 })
