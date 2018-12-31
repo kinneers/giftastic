@@ -62,7 +62,8 @@ $(document).ready(function() {
     }
 
     //ajax call to Giphy
-    $(document).on('click', '.topic', function(){
+    $(document).on('click tap', '.topic', function(event){
+        event.preventDefault();
         topic = $(this).attr('value');
         $.ajax({
             url: "https://api.giphy.com/v1/gifs/search?q=" + topic + "&api_key=HauhqwQL2R2AM9YsD534mHau5NQBTYe7&limit=10&rating=g&rating=pg",
@@ -84,7 +85,8 @@ $(document).ready(function() {
         $('.grid').append(`<button class='more'>Get More!</button>`); //Appends button to retrieve 10 more gifs on this topic
         
         //Since 10 images have already been populated, the event listener for the call for the next 10 is now on the more button
-        $(document).on('click', '.more', function(){
+        $(document).on('click tap', '.more', function(event){
+            event.preventDefault();
             $.ajax({
                 url: "https://api.giphy.com/v1/gifs/search?q=" + topic + "&api_key=HauhqwQL2R2AM9YsD534mHau5NQBTYe7&limit=10&rating=g&rating=pg&offset=" + offset,
                 method: "GET"
@@ -100,7 +102,8 @@ $(document).ready(function() {
     } 
     
     //Function to animate or unanimate gifs on click (or tap)
-    $(document).on("click tap", ".gif", function() {
+    $(document).on("click tap", ".gif", function(event) {
+        event.preventDefault();
         var state = $(this).attr("data-state");
         if (state === "still") {
           $(this).attr("src", $(this).attr("data-animate"));
@@ -129,8 +132,8 @@ $(document).ready(function() {
         $('#results').append(removeFavorite); //appends the unfavorited gif back to the results section
         $('#results .addFavorite').show(); //shows the heart button in the returned results
         $('.sidebar .addFavorite').hide();  //keeps the other heart buttons hidden
-        $('.more').hide(); //Hides the previous Add More button
-        $('.grid').append(`<button class='more'>Get More!</button>`); //Appends button to retrieve 10 more gifs on this topic to the end of the div
+                        $('.more').hide(); //Hides the previous Add More button
+                $('.grid').append(`<button class='more'>Get More!</button>`); //Appends button to retrieve 10 more gifs on this topic to the end of the div
 
     })
 })
