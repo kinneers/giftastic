@@ -67,5 +67,8 @@ footer {
 .addFavorite {
     background-color: red;
     color: white;
+}
 
+.itemContent {
+    max-width: 200px;
 }
