@@ -9,14 +9,15 @@ body {
     flex-direction: column;
     min-height: 100vh;
     background-image: linear-gradient(to right bottom, rgba(117, 7, 131, 0.8), rgb(255, 255, 255, 0.8), rgba(219, 130, 203, 0.8));
-
 }
 
-/* Sets container for main content and sidebar to page height and uses grid to set the sidebar */
-#container {
-    flex: 1 0 auto;
-    display: grid;
-    grid-template-columns: 75% 25%;
+@media screen and (min-width: 800px) {
+    /* Sets container for main content and sidebar to page height and uses grid to set the sidebar */
+    #container {
+        flex: 1 0 auto;
+        display: grid;
+        grid-template-columns: 75% 25%;
+    }
 }
 
 h1 {
@@ -93,4 +94,18 @@ footer {
     color: white;
     padding: 10px;
     border-radius: 25px;
+}
+
+@media screen and (max-width: 800px) {
+    #container {
+        flex: 1 0 auto;
+    }
+    .sidebar {
+        display: flex;
+        flex-wrap: wrap;
+        justify-content: top;
+        align-items: center;
+        justify-items: center;
+        align-content: center;
+    }
 }
