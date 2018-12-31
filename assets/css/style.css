@@ -1,5 +1,7 @@
+/* Imports Google Font */
 @import url('https://fonts.googleapis.com/css?family=Thasadith');
 
+/* Sets page-wide fonts, flexbox settings, background color gradient */
 body {
     font-family: 'Thasadith', sans-serif;
     text-align: center;
@@ -10,11 +12,11 @@ body {
 
 }
 
+/* Sets container for main content and sidebar to page height and uses grid to set the sidebar */
 #container {
     flex: 1 0 auto;
     display: grid;
     grid-template-columns: 75% 25%;
-
 }
 
 h1 {
@@ -60,4 +62,10 @@ footer {
     height: auto;
     color: #fff;
     font-size: 20px;
+}
+
+.addFavorite {
+    background-color: red;
+    color: white;
+
 }

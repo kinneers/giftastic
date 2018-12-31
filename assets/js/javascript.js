@@ -9,17 +9,10 @@ $(document).ready(function() {
     $("#select-topic").on('click', function(event) {
         event.preventDefault();
         selection = $('#topic-input').val().trim();
-        topics.push(selection);
         $('#topic-input').val('');
         $(".buttons").empty();
-      
-        //Renders the buttons
-        for(var i = 0; i < topics.length; i++){
-            renderButtons(topics[i]);
-            btns++;
-        }
 
-        //Checks that there is text in the form field
+        //Checks that there is text in the form field prior to pushing selection to topics array
         if (!selection) {
             $('.prompt').show();
             return false;
@@ -28,8 +21,14 @@ $(document).ready(function() {
             console.log(selection);
             $('#topic-input').after().empty();
             $('.prompt').hide();
+            topics.push(selection);
         }
-        console.log(topics);
+
+        //Renders the buttons
+        for(var i = 0; i < topics.length; i++){
+            renderButtons(topics[i]);
+            btns++;
+        }
     })
 
     //Function to create a button
@@ -43,12 +42,13 @@ $(document).ready(function() {
         $(".buttons").append(newButton);
     }
 
-    //For loop to display each button
+    //For loop to display each selection button
     for(var i = 0; i < topics.length; i++){
         renderButtons(topics[i]);
         btns++;
     }
 
+    //ajax call to Giphy
     $(document).on('click', '.topic', function(){
         var topic = $(this).attr('value');
         $.ajax({
@@ -61,6 +61,7 @@ $(document).ready(function() {
         $('.promptsToChoose').text("");
     })
 
+    //displays each gif retrieved in the results section
     function displayImages(response) {
         $('.grid').empty();
         $('.clickPrompt').show();
@@ -71,14 +72,13 @@ $(document).ready(function() {
                 var imageRating = $('<p>').text("Rating: " + image.rating.toUpperCase());
                 var imageTitle = $('<p>').text("Title: " + image.title.toUpperCase());
                 var imageImportDateTime =$('<p>').text("Imported: " + image.import_datetime);
-                var favoriteButton = $(`<button class=addFavorite>Heart</button>`)
+                var favoriteButton = $(`<button class=addFavorite>&#10084;</button>`)
                 newDiv.append(newImage).append(imageTitle).append(imageRating).append(imageImportDateTime).append(favoriteButton);
                 $('#results').append(newDiv);
                 console.log(response);
                 console.log(imageRating);
             }
         });   
-        
     } 
     
     //Click to switch between animated and still
@@ -95,17 +95,20 @@ $(document).ready(function() {
     });
 
     //Move favorite gifs to favorites area on click of heart button
-    $(document).on('click tap','.addFavorite', function(){
-        var saveFavorite = $(this).parent();
-        $(this).hide();
-        saveFavorite.append(`<button class='remove'>Remove</button>`);
-        $('.sidebar').append(saveFavorite);
+    $(document).on('click tap','.addFavorite', function(event){
+        event.preventDefault();
+        var saveFavorite = $(this).parent(); //grabs the div associated with clicked button
+        $(this).hide(); //hides the heart (favorite) button
+        saveFavorite.append(`<button class='remove'>Remove</button>`); //adds a button to enable the user to remove the favorited gif from favorites
+        $('.sidebar').append(saveFavorite); //appends the favorited gif to the sidebar
     })
 
-    $(document).on('click tap','.remove', function(){
-        var removeFavorite = $(this).parent(); //grabs the image div associated with the clicked button
+    //Removes a gif from the favorites upon button click and returns it to the results area
+    $(document).on('click tap','.remove', function(event){
+        event.preventDefault();
+        var removeFavorite = $(this).parent(); //grabs the div associated with clicked button
         $(this).hide();  //hides the remove button
-        $('#results').append(removeFavorite);
+        $('#results').append(removeFavorite); //appends the unfavorited gif back to the results section
         $('#results .addFavorite').show(); //shows the heart button in the returned results
         $('.sidebar .addFavorite').hide();  //keeps the other heart buttons hidden
     })
