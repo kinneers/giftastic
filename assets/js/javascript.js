@@ -8,7 +8,7 @@ $(document).ready(function() {
     var offset = 10;
     
     function populateDiv(image) {
-        //Checks that gif is appropriate for audience prior to adding to page
+        //Checks that gif is appropriate for audience prior to adding to page (this is called in the API call now and could be refactored, but I left it as an extra precaution)
         if (image.rating !== "r" && image.rating !== "pg-13") {
             var newDiv = $("<div>");
             var newImage = $("<img>").attr("class", "gif grid-item").attr("data-state", "still").attr("src", image.images.fixed_width_still.url).attr("data-animate", image.images.fixed_width.url).attr("data-still", image.images.fixed_width_still.url);
@@ -65,7 +65,7 @@ $(document).ready(function() {
     $(document).on('click', '.topic', function(){
         topic = $(this).attr('value');
         $.ajax({
-            url: "https://api.giphy.com/v1/gifs/search?q=" + topic + "&api_key=HauhqwQL2R2AM9YsD534mHau5NQBTYe7&limit=10",
+            url: "https://api.giphy.com/v1/gifs/search?q=" + topic + "&api_key=HauhqwQL2R2AM9YsD534mHau5NQBTYe7&limit=10&rating=g&rating=pg",
             method: "GET"
         }).then(function(response){
             displayImages(response);
@@ -86,7 +86,7 @@ $(document).ready(function() {
         //Since 10 images have already been populated, the event listener for the call for the next 10 is now on the more button
         $(document).on('click', '.more', function(){
             $.ajax({
-                url: "https://api.giphy.com/v1/gifs/search?q=" + topic + "&api_key=HauhqwQL2R2AM9YsD534mHau5NQBTYe7&limit=10&offset=" + offset,
+                url: "https://api.giphy.com/v1/gifs/search?q=" + topic + "&api_key=HauhqwQL2R2AM9YsD534mHau5NQBTYe7&limit=10&rating=g&rating=pg&offset=" + offset,
                 method: "GET"
             }).then(function(response){
                 response.data.forEach(function(image) {

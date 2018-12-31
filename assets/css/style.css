@@ -52,6 +52,18 @@ label {
     flex-wrap: wrap;
     justify-content: center;
     align-items: center;
+    justify-items: center;
+    align-content: center;
+}
+
+.sidebar {
+    display: flex;
+    flex-direction: column;
+    flex-wrap: wrap;
+    justify-content: top;
+    align-items: center;
+    justify-items: center;
+    align-content: center;
 }
 
 footer {
@@ -67,8 +79,18 @@ footer {
 .addFavorite {
     background-color: red;
     color: white;
+    border-radius: 25px;
 }
 
 .itemContent {
     max-width: 200px;
+}
+
+.more {
+    font-size: 18px;
+    margin: 40px;
+    background-color: blueviolet;
+    color: white;
+    padding: 10px;
+    border-radius: 25px;
 }
