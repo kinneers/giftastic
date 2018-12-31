@@ -129,5 +129,8 @@ $(document).ready(function() {
         $('#results').append(removeFavorite); //appends the unfavorited gif back to the results section
         $('#results .addFavorite').show(); //shows the heart button in the returned results
         $('.sidebar .addFavorite').hide();  //keeps the other heart buttons hidden
+        $('.more').hide(); //Hides the previous Add More button
+        $('.grid').append(`<button class='more'>Get More!</button>`); //Appends button to retrieve 10 more gifs on this topic to the end of the div
+
     })
 })
