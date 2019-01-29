@@ -1,5 +1,4 @@
 $(document).ready(function() {
-    window.localStorage.clear()
     $('.prompt').hide();
     $('.clickPrompt').hide();
     var topics = ["Brad Pitt", "Angelina Jolie", "Jennifer Lawrence", "Tom Hanks", "Robert De Niro", "Johnny Depp", "Al Pacino", "Denzel Washington", "Russell Crowe", "Leonardo DiCaprio", "Tom Cruise", "John Travolta", "Arnold Schwarzenegger", "Kate Winslet", "Christian Bale", "Morgan Freeman", "Keanu Reeves", "Nicolas Cage", "Hugh Jackman", "Bruce Willis", "Will Smith", "Keira Knightly", "Vin Diesel", "Matt Damon", "Catherine Zeta-Jones", "George Clooney", "Scarlett Johansson", "Robert Downey, Jr.", "Sandra Bullock", "Meg Ryan", "Megan Fox", "Nicole Kidman", "Cameron Diaz", "Katherine Heigl"];
@@ -7,11 +6,13 @@ $(document).ready(function() {
     var selection='';
     var topic;
     var offset = 10;
-    
+
     function populateDiv(image) {
         //Checks that gif is appropriate for audience prior to adding to page (this is called in the API call now and could be refactored, but I left it as an extra precaution)
         if (image.rating !== "r" && image.rating !== "pg-13") {
-            var newDiv = $("<div>");
+            var id = image.id;
+            console.log(image.id);
+            var newDiv = $(`<div id=${id}>`);
             var newImage = $("<img>")
                         .attr("class", "gif grid-item")
                         .attr("data-state", "still")
@@ -23,11 +24,12 @@ $(document).ready(function() {
             var imageImportDateTime =$('<p class="itemContent">').text("Imported: " + image.import_datetime);
             var favoriteButton = $(`<button class=addFavorite>&#10084;</button>`)
             newDiv.append(newImage)
-                  .append(imageTitle)
-                  .append(imageRating)
-                  .append(imageImportDateTime)
-                  .append(favoriteButton);
+                    .append(imageTitle)
+                    .append(imageRating)
+                    .append(imageImportDateTime)
+                    .append(favoriteButton);
             $('#results').append(newDiv);
+            console.log(image);
         }
     }
 
@@ -129,6 +131,9 @@ $(document).ready(function() {
     $(document).on('click tap','.addFavorite', function(event){
         event.preventDefault();
         var saveFavorite = $(this).parent(); //grabs the div associated with clicked button
+        var getId = $('.addFavorite').parent().prop('id');
+        var makeVal = $('.addFavorite').parent().prop('id');
+        localStorage.setItem(getId, makeVal);
         $(this).hide(); //hides the heart (favorite) button
         saveFavorite.append(`<button class='remove'>Remove</button>`); //adds a button to enable the user to remove the favorited gif from favorites
         $('.sidebar').append(saveFavorite); //appends the favorited gif to the sidebar
