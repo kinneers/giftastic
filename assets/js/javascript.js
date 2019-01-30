@@ -23,14 +23,16 @@ $(document).ready(function() {
             var imageRating = $('<p class="itemContent">').text("Rating: " + image.rating.toUpperCase());
             var imageTitle = $('<p class="itemContent">').text("Title: " + image.title.toUpperCase());
             var imageImportDateTime =$('<p class="itemContent">').text("Imported: " + image.import_datetime);
-            var favoriteButton = $(`<button class=addFavorite>&#10084;</button>`)
+            var favoriteButton = $(`<button class=addFavorite>&#10084;</button>`) //adds a heart button for user to add gif to favorites
+            var removeButton = $(`<button class='remove'>Remove</button>`); //adds a button to enable the user to remove the favorited gif from favorites
             newDiv.append(newImage)
                     .append(imageTitle)
                     .append(imageRating)
                     .append(imageImportDateTime)
-                    .append(favoriteButton);
+                    .append(favoriteButton)
+                    .append(removeButton);
             placement.append(newDiv);
-            console.log(image);
+            $('.remove').hide();
         }
     }
 
@@ -83,6 +85,7 @@ $(document).ready(function() {
             method: "GET"
         }).then(function(response){
             displayImages(response);
+            $('.sidebar .remove').show();
         })
         $('.promptsToChoose').text("");
         offset = 10; //Ensures that the offset returns to 10 when a new topic button is pushed if it has previously been changed by the more button (otherwise less popular gifs will populate on the next call for more gifs)
@@ -171,6 +174,8 @@ $(document).ready(function() {
         }).then(function(image){
             console.log(image.data);
             populateDiv(image.data, $('#favs'));
+            $('.sidebar .addFavorite').hide();  //keeps the other heart buttons hidden
+            $('.sidebar .remove').show();  //keeps the other heart buttons hidden
         })
     }   
 })
