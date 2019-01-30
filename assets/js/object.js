@@ -8,7 +8,7 @@ $(document).ready(function() {
     var offset = 10;
     var favArray = [];
 
-    function populateDiv(image) {
+    function populateDiv(image, placement) {
         //Checks that gif is appropriate for audience prior to adding to page (this is called in the API call now and could be refactored, but I left it as an extra precaution)
         if (image.rating !== "r" && image.rating !== "pg-13") {
             var id = image.id;
@@ -29,7 +29,7 @@ $(document).ready(function() {
                     .append(imageRating)
                     .append(imageImportDateTime)
                     .append(favoriteButton);
-            $('#results').append(newDiv);
+            placement.append(newDiv);
             console.log(image);
         }
     }
@@ -93,7 +93,7 @@ $(document).ready(function() {
         $('.grid').empty(); //clears previous content
         $('.clickPrompt').show(); //Shows prompt to click the image to animate
         response.data.forEach(function(image) {
-            populateDiv(image); //Appends 10 appropriate images
+            populateDiv(image, $('#results')); //Appends 10 appropriate images
         });
         $('.grid').append(`<button class='more'>Get More!</button>`); //Appends button to retrieve 10 more gifs on this topic
         
@@ -105,7 +105,7 @@ $(document).ready(function() {
                 method: "GET"
             }).then(function(response){
                 response.data.forEach(function(image) {
-                    populateDiv(image); //Appends next 10 images (fewer if some are inappropriately rated)
+                    populateDiv(image, $('#results')); //Appends next 10 images (fewer if some are inappropriately rated)
                 });
                 $('.more').hide(); //Hides the previous Add More button
                 $('.grid').append(`<button class='more'>Get More!</button>`); //Appends button to retrieve 10 more gifs on this topic to the end of the div
@@ -134,6 +134,7 @@ $(document).ready(function() {
         var saveFavorite = $(this).parent(); //grabs the div associated with clicked button
         var getId = $('.addFavorite').parent().prop('id');
         var makeVal = $('.addFavorite').parent().prop('id');
+        favArray.push(makeVal);
         localStorage.setItem(getId, makeVal);
         $(this).hide(); //hides the heart (favorite) button
         saveFavorite.append(`<button class='remove'>Remove</button>`); //adds a button to enable the user to remove the favorited gif from favorites
@@ -151,4 +152,25 @@ $(document).ready(function() {
         $('.more').hide(); //Hides the previous Add More button
         $('.grid').append(`<button class='more'>Get More!</button>`); //Appends button to retrieve 10 more gifs on this topic to the end of the div
     })
+
+    
+    //ajax call to Giphy for favorites
+    for ( var i = 0, len = localStorage.length; i < len; ++i ) {
+        favArray.push( localStorage.getItem( localStorage.key( i ) ) );
+      }
+    console.log(favArray);
+
+    for (var i = 0; i < favArray.length; i++) {
+        var id = favArray[i];
+        console.log(id);
+
+        //Okay, I can get an image of the right person to persist... but it is not necessarily the chosen image... so weird
+        $.ajax({
+            url: "https://api.giphy.com/v1/gifs/" + id + "?api_key=HauhqwQL2R2AM9YsD534mHau5NQBTYe7",
+            method: "GET"
+        }).then(function(image){
+            console.log(image.data);
+            populateDiv(image.data, $('#favs'));
+        })
+    }   
 })
