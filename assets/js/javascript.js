@@ -13,7 +13,7 @@ $(document).ready(function() {
         if (image.rating !== "r" && image.rating !== "pg-13") {
             var id = image.id;
             console.log(image.id);
-            var newDiv = $(`<div id=${id}>`);
+            var newDiv = $(`<div id=${id}> class='id'`);
             var newImage = $("<img>")
                         .attr("class", "gif grid-item")
                         .attr("data-state", "still")
@@ -32,7 +32,6 @@ $(document).ready(function() {
                     .append(favoriteButton)
                     .append(removeButton);
             placement.append(newDiv);
-            $('.remove').hide();
         }
     }
 
@@ -85,7 +84,8 @@ $(document).ready(function() {
             method: "GET"
         }).then(function(response){
             displayImages(response);
-            $('.sidebar .remove').show();
+            $('.remove').hide();
+            $('#favs.id.remove').show();
         })
         $('.promptsToChoose').text("");
         offset = 10; //Ensures that the offset returns to 10 when a new topic button is pushed if it has previously been changed by the more button (otherwise less popular gifs will populate on the next call for more gifs)
@@ -140,8 +140,8 @@ $(document).ready(function() {
         favArray.push(makeVal);
         localStorage.setItem(getId, makeVal);
         $(this).hide(); //hides the heart (favorite) button
-        saveFavorite.append(`<button class='remove'>Remove</button>`); //adds a button to enable the user to remove the favorited gif from favorites
         $('.sidebar').append(saveFavorite); //appends the favorited gif to the sidebar
+        $('.sidebar .remove').show();
     })
 
     //Removes a gif from the favorites upon button click and returns it to the results area
@@ -177,7 +177,7 @@ $(document).ready(function() {
             console.log(image.data);
             populateDiv(image.data, $('#favs'));
             $('.sidebar .addFavorite').hide();  //keeps the other heart buttons hidden
-            $('.sidebar .remove').show();  //keeps the other heart buttons hidden
+            $('#favs.id.remove').show();
         })
     }   
 })
