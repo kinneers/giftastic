@@ -61,9 +61,9 @@ $(document).ready(function() {
     //Function to create a button
     function renderButtons(topics) {
         var newButton = $("<input>").attr({
-        type:"button",
-        value: topics,
-        id: "btn" + btns
+            type:"button",
+            value: topics,
+            id: "btn" + btns
         });
         newButton.addClass('topic')
         $(".buttons").append(newButton);
@@ -85,7 +85,7 @@ $(document).ready(function() {
         }).then(function(response){
             displayImages(response);
             $('.remove').hide();
-            $('#favs.id.remove').show();
+            $('.sidebar .remove').show();
         })
         $('.promptsToChoose').text("");
         offset = 10; //Ensures that the offset returns to 10 when a new topic button is pushed if it has previously been changed by the more button (otherwise less popular gifs will populate on the next call for more gifs)
@@ -113,6 +113,8 @@ $(document).ready(function() {
                 $('.more').hide(); //Hides the previous Add More button
                 $('.grid').append(`<button class='more'>Get More!</button>`); //Appends button to retrieve 10 more gifs on this topic to the end of the div
                 offset += 10; //Increments the offset to collect the next 10 gifs on the same topic
+                $('.remove').hide();
+                $('.sidebar .remove').show();
             })
         })
     } 
@@ -158,18 +160,15 @@ $(document).ready(function() {
         localStorage.removeItem(getId);
     })
 
-    
     //ajax call to Giphy for favorites
     for (var i = 0, len = localStorage.length; i < len; ++i) {
         favArray.push(localStorage.getItem(localStorage.key(i)));
       }
     console.log(favArray);
-
     for (var i = 0; i < favArray.length; i++) {
         var id = favArray[i];
         console.log(id);
-
-        //Okay, I can get an image of the right person to persist... but it is not necessarily the chosen image... so weird
+        //Call for each of the images saved in local storage
         $.ajax({
             url: "https://api.giphy.com/v1/gifs/" + id + "?api_key=HauhqwQL2R2AM9YsD534mHau5NQBTYe7",
             method: "GET"
@@ -177,7 +176,7 @@ $(document).ready(function() {
             console.log(image.data);
             populateDiv(image.data, $('#favs'));
             $('.sidebar .addFavorite').hide();  //keeps the other heart buttons hidden
-            $('#favs.id.remove').show();
+            $('.sidebar .remove').show();
         })
     }   
 })
